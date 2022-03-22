@@ -8,7 +8,6 @@ function App() {
   const [names,setNames]=useState();
   function handleInputChange(e){
     /* get the input */
-    console.log(searchAndCreateElements())
     setNames(searchAndCreateElements(e.target.value))
 
   }
