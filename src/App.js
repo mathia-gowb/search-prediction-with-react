@@ -1,25 +1,59 @@
 import './App.css';
-import {useState} from 'react';
-import {searchAndCreateElements} from './data';
+import {useState,useEffect} from 'react';
+import ResultsElement from './components/results-element';
+import InfoPopup from './components/info-popup';
+
 
 /* mapping through the results */
 /* then populating the dom with the found results */
 function App() {
-  const [names,setNames]=useState();
-  function handleInputChange(e){
+  const [searchResultsElements,setSearchResultsElements]=useState([]);
+  const [countries,setCountries]=useState([]);
+  const [popupDisplayState,setPopupDisplayState]=useState(false);
+  useEffect(()=>{
+    fetch('https://restcountries.com/v3.1/all')
+    .then(results=>results.json())
+    .then(data=>setCountries(data))
+    .catch(err=>alert('were having problem fetching results'))
+  },[])
+  function handleInputChange({target}){
     /* get the input */
-    setNames(searchAndCreateElements(e.target.value))
-
+    const searchRegex=new RegExp(`${target.value}`,'gmi');
+    if(target.value.length>2){
+      /* if input length >2 start searching */
+      /* filter countries by search term and create list items*/
+      const searchResults=countries.filter(country=>country.name.common.match(searchRegex))
+     .map(results=><ResultsElement 
+          clickHandler={showInfoPopup}
+          flag={results.flags.png}
+          countryName={results.name.common}
+          countryCode={results.coic}
+          />
+        ) 
+        setSearchResultsElements(searchResults)
+    }
+  }
+  function showInfoPopup(e){
+    console.log(e)
+    setPopupDisplayState(true)
+  }
+  function hideInfoPopup(){
+    setPopupDisplayState(false)
   }
   return (
-
+    <main >
+    <div className="wrapper">
       <div className="search-container">
-        <input type="text" placeholder="Type Your Search Term....." onChange={handleInputChange}/>
-        <ul className="search-results">
-            {names}
-        </ul>
+        <h1>Search for  information about any country</h1>
+        <button>this site uses rest countries api</button>
+        <input type="text" placeholder="Search For Country" onChange={handleInputChange}/>
+        <div className="search-results">
+            {searchResultsElements}
+        </div>
       </div>
-
+    </div>
+    {popupDisplayState&&<InfoPopup clickHandler={hideInfoPopup}/>}
+   </main>
   );
 }
 
