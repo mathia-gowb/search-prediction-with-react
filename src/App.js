@@ -1,7 +1,7 @@
 import './App.css';
 import {useState,useEffect} from 'react';
 import ResultsElement from './components/results-element';
-import InfoPopup from './components/info-popup';
+import{ InfoPopup} from './components/info-popup';
 
 
 /* mapping through the results */
@@ -9,13 +9,15 @@ import InfoPopup from './components/info-popup';
 function App() {
   const [searchResultsElements,setSearchResultsElements]=useState([]);
   const [countries,setCountries]=useState([]);
-  const [popupDisplayState,setPopupDisplayState]=useState(false);
+  const [popupData,setPopupData]=useState({});
+
   useEffect(()=>{
     fetch('https://restcountries.com/v3.1/all')
     .then(results=>results.json())
     .then(data=>setCountries(data))
     .catch(err=>alert('were having problem fetching results'))
   },[])
+
   function handleInputChange({target}){
     /* get the input */
     const searchRegex=new RegExp(`${target.value}`,'gmi');
@@ -27,18 +29,24 @@ function App() {
           clickHandler={showInfoPopup}
           flag={results.flags.png}
           countryName={results.name.common}
-          countryCode={results.coic}
+          countryCode={results.cioc}
           />
         ) 
         setSearchResultsElements(searchResults)
     }
   }
-  function showInfoPopup(e){
-    console.log(e)
-    setPopupDisplayState(true)
+
+  function showInfoPopup({currentTarget}){
+    setPopupData((prev)=>{
+      return {...prev,'id':currentTarget.id,'display':true}
+    })
+
+    
   }
   function hideInfoPopup(){
-    setPopupDisplayState(false)
+    setPopupData((prev)=>{
+      return {...prev,'display':false}
+    })
   }
   return (
     <main >
@@ -52,7 +60,7 @@ function App() {
         </div>
       </div>
     </div>
-    {popupDisplayState&&<InfoPopup clickHandler={hideInfoPopup}/>}
+    {popupData.display&&<InfoPopup dataId={popupData.id} clickHandler={hideInfoPopup}/>}
    </main>
   );
 }
