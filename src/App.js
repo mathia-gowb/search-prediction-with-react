@@ -1,9 +1,9 @@
 import './App.css';
-import {useState,useEffect} from 'react';
+import {useState,useEffect,createContext} from 'react';
 import ResultsElement from './components/results-element';
 import{ InfoPopup} from './components/info-popup';
 
-
+export const PopupHandlerContext=createContext({});
 /* mapping through the results */
 /* then populating the dom with the found results */
 function App() {
@@ -49,19 +49,21 @@ function App() {
     })
   }
   return (
-    <main >
-    <div className="wrapper">
-      <div className="search-container">
-        <h1>Search for  information about any country</h1>
-        <button>this site uses rest countries api</button>
-        <input type="text" placeholder="Search For Country" onChange={handleInputChange}/>
-        <div className="search-results">
-            {searchResultsElements}
-        </div>
-      </div>
-    </div>
-    {popupData.display&&<InfoPopup dataId={popupData.id} clickHandler={hideInfoPopup}/>}
-   </main>
+    <PopupHandlerContext.Provider value={{hideInfoPopup}}>
+      <main >
+       <div className="wrapper">
+         <div className="search-container">
+           <h1>Search for  information about any country</h1>
+           <button>this site uses rest countries api</button>
+           <input type="text" placeholder="Search For Country" onChange={handleInputChange}/>
+           <div className="search-results">
+               {searchResultsElements}
+           </div>
+         </div>
+       {popupData.display&&<InfoPopup dataId={popupData.id}/>}
+       </div>
+      </main>
+   </PopupHandlerContext.Provider>
   );
 }
 
