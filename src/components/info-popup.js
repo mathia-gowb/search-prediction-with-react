@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react"
-import { popupHandlerContext } from "../App";
+import {useEffect, useState } from "react"
 import { InfoWrapperWithInfo } from "./info-wrapper-final";
 
 export  function InfoPopup(props){

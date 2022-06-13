@@ -19,9 +19,10 @@ function App() {
   },[])
 
   function handleInputChange({target}){
+    console.log(target.value)
     /* get the input */
     const searchRegex=new RegExp(`${target.value}`,'gmi');
-    if(target.value.length>2){
+    if(target.value.length>1){
       /* if input length >2 start searching */
       /* filter countries by search term and create list items*/
       const searchResults=countries.filter(country=>country.name.common.match(searchRegex))
@@ -32,17 +33,18 @@ function App() {
           countryCode={results.cioc}
           />
         ) 
-        setSearchResultsElements(searchResults)
+        setSearchResultsElements(searchResults.length>0?searchResults:<p>No results</p>)
+        return
     }
+    setSearchResultsElements(<p>No results</p>)
   }
 
   function showInfoPopup({currentTarget}){
     setPopupData((prev)=>{
       return {...prev,'id':currentTarget.id,'display':true}
     })
-
-    
   }
+
   function hideInfoPopup(){
     setPopupData((prev)=>{
       return {...prev,'display':false}

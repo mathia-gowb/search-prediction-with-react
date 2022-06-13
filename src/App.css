@@ -125,6 +125,9 @@ input{
     color:white;
     padding:3px
      }
+.country-flag-large{
+    width:90px
+}
 .country-flag{
     width:30px;
     margin-right:10px

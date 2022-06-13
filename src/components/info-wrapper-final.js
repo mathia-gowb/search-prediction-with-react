@@ -16,11 +16,12 @@ export function InfoWrapperWithInfo(props){
                 <li><span className="key">Capital</span> - <span>{formatData(props.popupData.capital[0]) }</span> </li>
                 <li><span className="key">Region</span> - <span>{formatData(props.popupData.region)}</span> </li>
                 <li><span className="key">Population</span> - <span>{formatData(props.popupData.population)}</span> </li>
-                <li><span className="key">Languages</span> - <span>{formatData(props.popupData.languages)}</span> </li>
+                <li><span className="key">Languages</span> - <span>{formatData(props.popupData.languages,'languages')}</span> </li>
               </ul>
               <div className="flags">
                 <h4>flag</h4>
-                <img src={`${formatData(props.popupData.flags.png)}`} alt="country flag"/>
+                <br/>
+                <img className="country-flag-large" src={`${formatData(props.popupData.flags.png)}`} alt="country flag"/>
 
               </div>
             </div>
@@ -28,8 +29,8 @@ export function InfoWrapperWithInfo(props){
           <div className='country-info'>
             <h3 className='country-info-block-header'>Economic info</h3>
             <ul className="info-list">
-              <li><span className="key">Currency</span> - <span>{formatData(props.popupData.currencies) }</span> </li>
-              <li><span className="key">Currency Symbol</span> - <span>$</span> </li>
+              <li><span className="key">Currency</span> - <span>{formatData(props.popupData.currencies,'currencies') }</span> </li>
+              <li><span className="key">Currency Symbol</span> - <span>{formatData(props.popupData.currencies,'currency-symbol') }</span> </li>
               <li><span className="key">Timezones</span> - <span>{formatData(props.popupData.timezones)}</span> </li>
             </ul>
 
