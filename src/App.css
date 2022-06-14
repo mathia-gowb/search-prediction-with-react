@@ -40,7 +40,7 @@ ul {
     right:0;
     width:100%;
     min-height:100vh;
-    background-color: rgba(0, 0, 0, 0.26);
+    background: linear-gradient(to bottom ,rgba(0, 0, 0, 0.644),#0F2027) ;
 
 }
 .key{
@@ -84,6 +84,16 @@ ul {
 .info-list,.country-info-block-header,.flags{
     padding:10px 20px;
 }
+.loading-gif{
+    width:200px;
+    margin:auto;
+    color:white;
+    font-weight:bold;
+    text-align: center;
+}
+.loading-gif img{
+    max-width:80px
+}
 .back-button{
     color:black;
     cursor:pointer;
@@ -104,6 +114,11 @@ button{
     padding:2px 10px;
     border:none;
     margin-bottom:5px
+}
+.highlight{
+   color: rgb(0, 163, 0);
+   font-weight:bold;
+
 }
 input,.search-results{
         box-sizing:border-box

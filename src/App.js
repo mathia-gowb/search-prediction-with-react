@@ -19,7 +19,6 @@ function App() {
   },[])
 
   function handleInputChange({target}){
-    console.log(target.value)
     /* get the input */
     const searchRegex=new RegExp(`${target.value}`,'gmi');
     if(target.value.length>1){
@@ -31,6 +30,7 @@ function App() {
           flag={results.flags.png}
           countryName={results.name.common}
           countryCode={results.cioc}
+          searchQuery={target.value}
           />
         ) 
         setSearchResultsElements(searchResults.length>0?searchResults:<p>No results</p>)
